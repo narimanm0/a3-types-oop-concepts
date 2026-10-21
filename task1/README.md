@@ -48,3 +48,32 @@ Every program was run 3 times and the table shows the range. The time is for 100
 | full use    | 2.34-2.38s   | 2.46-2.49s   | 2.35-2.46s   |
  
 Of course, numbers can differ on other computers, because they depend on the CPU, the compiler and the operating system. In my runs the results changed about 10% from run to run.
+
+
+
+
+
+
+
+## 3. Explanation
+ 
+### Full use: all 3 are the same
+ 
+When we write all 1 MiB, one call takes about 24 µs, and it does not matter where array is. Writing one MB is a much bigger job than getting the memory. So for big arrays which are really used, the place of the array is not important for speed.
+ 
+### Light use: why is the heap as fast as static?
+ 
+That was surprising for me. A call of `malloc(1 MiB)` should be slow, because the allocator has for asking OS for memory, and then every touched page gives a page fault. But the heap version took only about 1.1 µs, almost the same as the static one.
+ 
+### Light use: why is the stack 2 times slower?
+ 
+I expected the stack to be the fastest, because creating an array on the stack is usually one instruction. However, `use_stack` was about 1 µs slower than the others. In full use this extra 1 µs is only about 4% of 24 µs, so it is almost not visible. But in the full-use table the stack was the slowest in most of the runs, which fits.
+ 
+### `-O0` and `-O2`
+ 
+At `-O0` the light-use loop is about 2 times slower for all three, because the loop is not optimized. The full-use time does not change, because `memset()` is a function from the library, which is already optimized.
+ 
+
+## 4. Conclusion
+ 
+For a big array which we really use, static, stack and heap give almost the same time, because the work with the array is much bigger than the allocation. The differences are only visible when we touch a small part of the array. Then the cost of allocation is the main part: the stack paid for stack probing (about 1 µs), and the heap was fast only because glibc reused the memory. With `mmap` at every call, the heap was about 300 times slower. Therefore, the speed should not be the main reason to choose. Static memory is simple, but it lives until the end of the program and has a fixed size. Stack is automatic, but it is small (8 MiB here), so a few big arrays can crash the program. Heap has flexible size and lifetime, but we must call `free()` and its speed depends on the allocator.
