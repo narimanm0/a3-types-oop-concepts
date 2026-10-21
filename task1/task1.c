@@ -23,3 +23,12 @@ void use_array(char *a, int full){
     }
     keep(a);
 }
+
+// 1. STATIC ARRAY
+static char static_array[array_size]; // created once
+ 
+// Why noinline is needed here? - because the compiler should move arrays into main
+__attribute__((noinline))
+void use_static(int full){
+    use_array(static_array, full);
+}
