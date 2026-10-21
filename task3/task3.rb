@@ -46,7 +46,6 @@ class Book < LibraryItem
 end
 
 # 3. DVD Class 
-
 class DVD < LibraryItem
   attr_reader :genre, :duration
  
@@ -67,6 +66,30 @@ class DVD < LibraryItem
     super
     puts "Genre: #{genre}"
     puts "Duration: #{duration} min" if duration
+  end
+end
+
+# 4. CD Class
+class CD < LibraryItem
+  attr_reader :genre, :tracks
+  
+  def initialize(title, artist, year, genre, tracks = nil) # author of a CD is its artist, number of tracks
+    super(title, artist, year)
+    @genre = genre
+    @tracks = tracks
+  end
+ 
+  alias artist author
+ 
+  def creator_label
+    "Artist"
+  end
+ 
+  def display_info
+    puts "[CD]"
+    super
+    puts "Genre: #{genre}"
+    puts "Tracks: #{tracks}" if tracks
   end
 end
  
