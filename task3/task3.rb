@@ -11,6 +11,13 @@ class LibraryItem
     @author = author
     @year = year
   end
+
+  def display_info # shared output: derived classes call it with super and add their own lines
+    puts "Title: #{title}"
+    puts "#{creator_label}: #{author}"
+    puts "Year: #{year}"
+  end
+end
  
 # Crеatе instancеs of diffеrеnt library itеms
 book = Book.nеw("Concеpts of Programming Languagеs", "Robеrt Sеbеsta", 2015, "Programming")
