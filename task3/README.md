@@ -48,3 +48,30 @@ It stores the items in an array and has these methods:
 - `remove_item(title)`: removes the first item with this title and prints a message if there is no such item
 - `display_all_items`: prints all items, or a message if the library is empty
 - `display_item(item)`: displays one item.
+
+
+
+
+
+
+## 2. OOP principles
+ 
+**1) Inheritance:**
+
+`Book`, `DVD` and `CD` get `title`, `author`, `year` and `to_s` from `LibraryItem`, and they call `super` in `initialize` and in `display_info`, so the common code is written only once.
+ 
+**2) Encapsulation:**
+
+The properties have only `attr_reader`, so they can be read but not changed from outside. The constructor checks the data: an empty title or a year which is not an integer raises `ArgumentError`. The array `@items` in `Library` is not available from outside, we can use it only through the methods. Therefore, nobody can put a wrong object in it.
+ 
+**3) Polymorphism:** 
+
+`display_item` is not checking the type of the object. There is no `if item.is_a?(Book)` anywhere in the code:
+ 
+```ruby
+def display_item(item)
+  item.display_info
+end
+```
+ 
+Ruby chooses the right `display_info` at run time, using the real class of the object. `display_all_items` calls `display_item` for each item, so the list can contain books, DVDs and CDs together. Moreover, if we add a new class, for example `Magazine`, the `Library` class does not need any change. Ruby uses duck typing, so it would work even for an object which is not a `LibraryItem` but has `display_info`. I still check `is_a?(LibraryItem)` in `add_item`, because I prefer to reject wrong objects when they are added, and not later.
