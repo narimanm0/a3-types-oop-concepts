@@ -75,3 +75,40 @@ end
 ```
  
 Ruby chooses the right `display_info` at run time, using the real class of the object. `display_all_items` calls `display_item` for each item, so the list can contain books, DVDs and CDs together. Moreover, if we add a new class, for example `Magazine`, the `Library` class does not need any change. Ruby uses duck typing, so it would work even for an object which is not a `LibraryItem` but has `display_info`. I still check `is_a?(LibraryItem)` in `add_item`, because I prefer to reject wrong objects when they are added, and not later.
+
+
+
+
+## 3. Output
+ 
+The output:
+ 
+```
+Library catalog (3 items)
+[Book]
+Title: Concepts of Programming Languages
+Author: Robert Sebesta
+Year: 2015
+Genre: Programming
+ 
+[DVD]
+Title: Inception
+Director: Christopher Nolan
+Year: 2010
+Genre: Science Fiction
+ 
+[CD]
+Title: A Day at the Races
+Artist: Queen
+Year: 1976
+Genre: Rock
+```
+
+## 4. A note about the assignment text
+ 
+The test code in the assignment contains some letters which look like Latin `e`, but they are really cyrillic `е`. Ruby sees them as different characters, so the code would not run if we copy it. In my code, I changed them with normal letters.
+ 
+## 5. Conclusion
+ 
+This task showed the three OOP principles in a small Ruby program. Inheritance removed the repeated code, encapsulation protected the data, and polymorphism let `Library` work with any item without knowing its type. I think the most useful part was `super` in `display_info`: each class prints only what is new in it.
+ 
