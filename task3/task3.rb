@@ -44,6 +44,31 @@ class Book < LibraryItem
     puts "Genre: #{genre}"
   end
 end
+
+# 3. DVD Class 
+
+class DVD < LibraryItem
+  attr_reader :genre, :duration
+ 
+  def initialize(title, director, year, genre, duration = nil) # author of a DVD is its director, durationis optional
+    super(title, director, year)
+    @genre = genre
+    @duration = duration
+  end
+ 
+  alias director author
+ 
+  def creator_label
+    "Director"
+  end
+ 
+  def display_info
+    puts "[DVD]"
+    super
+    puts "Genre: #{genre}"
+    puts "Duration: #{duration} min" if duration
+  end
+end
  
 # Crеatе instancеs of diffеrеnt library itеms
 book = Book.nеw("Concеpts of Programming Languagеs", "Robеrt Sеbеsta", 2015, "Programming")
