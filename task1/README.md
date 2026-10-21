@@ -25,3 +25,26 @@ There are 2 details in the code which may look strange:
 
  
 I ran the code with GCC 14.3.0, 64-bit Linux, 8 CPU cores and the default stack limit of 8 MiB.
+
+
+
+
+## 2. Results
+ 
+Every program was run 3 times and the table shows the range. The time is for 100,000 calls, and in brackets is the time of one call.
+ 
+**C, `-O2`**
+ 
+| Workload    | Static       | Stack        | Heap         |
+|-------------|--------------|--------------|--------------|
+| light use   | 0.104-0.107s | 0.211-0.216s | 0.107-0.119s |
+| full use    | 2.36-2.52s   | 2.48-2.66s   | 2.36-2.57s   |
+ 
+**C, `-O0`**
+ 
+| Workload    | Static       | Stack        | Heap         |
+|-------------|--------------|--------------|--------------|
+| light use   | 0.220-0.270s | 0.325-0.378s | 0.221-0.228s |
+| full use    | 2.34-2.38s   | 2.46-2.49s   | 2.35-2.46s   |
+ 
+Of course, numbers can differ on other computers, because they depend on the CPU, the compiler and the operating system. In my runs the results changed about 10% from run to run.
