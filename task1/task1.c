@@ -66,3 +66,27 @@ double measure(void (*f)(int), int full){
  
     return (double)(clock() - start) / CLOCKS_PER_SEC;
 }
+
+
+int main(){
+    int modes[2] = { 0, 1 };
+    const char *names[2] = {
+        "1 byte per page:",
+        "every byte:" 
+    };
+ 
+    printf("Array size: %d bytes, runs: %d\n", array_size, runs);
+ 
+    for (int s = 0; s < 2; s++) {
+        double t_static = measure(use_static, modes[s]);
+        double t_stack  = measure(use_stack, modes[s]);
+        double t_heap   = measure(use_heap, modes[s]);
+ 
+        printf("\n%s\n", names[s]);
+        printf("static | %.4f s | %.0f ns per call\n", t_static, t_static / runs * 1e9);
+        printf("stack  | %.4f s | %.0f ns per call\n", t_stack, t_stack / runs * 1e9);
+        printf("heap   | %.4f s | %.0f ns per call\n", t_heap, t_heap / runs * 1e9);
+    }
+ 
+    return 0;
+}
