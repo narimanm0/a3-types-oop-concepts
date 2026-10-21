@@ -129,7 +129,7 @@ class Library
       return
     end
  
-    puts "=== Library catalog (#{@items.size} items) ==="
+    puts "Library catalog (#{@items.size} items)"
     @items.each do |item|
       display_item(item)
       puts
