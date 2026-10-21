@@ -32,4 +32,28 @@ namespace Binding
             Console.WriteLine("Dog: runs on four legs");
         }
     }
+
+    class Puppy : Dog // Puppy overrides the method again, the chain continues
+    {
+        public override void MakeSound()
+        {
+            Console.WriteLine("Puppy: Yip!");
+        }
+    }
+
+    class Cat : Animal // Cat hides a virtual method with new, this breaks the chain
+    {
+        public new void MakeSound()
+        {
+            Console.WriteLine("Cat: Meow!");
+        }
+    }
+
+    class Kitten : Cat  // Kitten overrides nothing from Cat, but Cat.MakeSound is not virtual anyway
+    {
+        public new void MakeSound()
+        {
+            Console.WriteLine("Kitten: Mew!");
+        }
+    }
 }
