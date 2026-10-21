@@ -1,5 +1,5 @@
 # Your implеmеntation goеs hеrе
-# base class: everything that all library items have in common
+# 1. base class
 class LibraryItem
   attr_reader :title, :author, :year
 
@@ -26,6 +26,22 @@ class LibraryItem
  
   def to_s
     "#{self.class.name}: #{title} (#{year})"
+  end
+end
+
+# 2. Book class
+class Book < LibraryItem
+  attr_reader :genre
+ 
+  def initialize(title, author, year, genre)
+    super(title, author, year)
+    @genre = genre
+  end
+ 
+  def display_info
+    puts "[Book]"
+    super
+    puts "Genre: #{genre}"
   end
 end
  
