@@ -3,6 +3,7 @@
 class LibraryItem
   attr_reader :title, :author, :year
 
+  # Initialize method
   def initialize(title, author, year)
     raise ArgumentError, "title cannot be empty" if title.to_s.strip.empty?
     raise ArgumentError, "year must be an integer" unless year.is_a?(Integer)
@@ -12,10 +13,19 @@ class LibraryItem
     @year = year
   end
 
+  # Display Info Method
   def display_info # shared output: derived classes call it with super and add their own lines
     puts "Title: #{title}"
     puts "#{creator_label}: #{author}"
     puts "Year: #{year}"
+  end
+
+  def creator_label # the name of the "author" field. Derived classes can change it (Director, Artist)
+    "Author"
+  end
+ 
+  def to_s
+    "#{self.class.name}: #{title} (#{year})"
   end
 end
  
