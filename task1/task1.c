@@ -53,3 +53,16 @@ void use_heap(int full){
     use_array(a, full);
     free(a);
 }
+
+// calling 100000 times
+double measure(void (*f)(int), int full){
+    f(full);
+ 
+    clock_t start = clock();
+ 
+    for (int i = 0; i < runs; i++) {
+        f(full);
+    }
+ 
+    return (double)(clock() - start) / CLOCKS_PER_SEC;
+}
