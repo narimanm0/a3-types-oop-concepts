@@ -32,3 +32,10 @@ __attribute__((noinline))
 void use_static(int full){
     use_array(static_array, full);
 }
+
+// 2. STACK ARRAY
+__attribute__((noinline)) // created every time function is called
+void use_stack(int full){
+    char a[array_size];
+    use_array(a, full);
+}
