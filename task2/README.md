@@ -105,3 +105,10 @@ Print((dynamic)x); // Print(Dog)
 Static binding is not only about hiding. When there are two overloads `Print(Animal)` and `Print(Dog)`,
 the compiler chooses one by the declared type of the argument, so `x` gives `Print(Animal)`,
 even if it contains a `Dog`. If we cast it, we get `Print(Dog)`. With `dynamic` the choice is moved to run time, so it is dynamic binding and the real type `Dog` is used.
+
+
+
+ 
+## 4. Conclusion
+ 
+`virtual` and `override` give dynamic binding: the object decides, and one base-class variable can work with many types. A normal method and `new` give static binding: the variable decides, and the compiler knows the answer before the program starts. Static binding is a bit faster, because there is no virtual table lookup, but the speed difference is small. I think `override` should be the default choice, and `new` should be used rarely, for example when we cannot change the base class and want a different method with the same name.
