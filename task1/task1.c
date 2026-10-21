@@ -39,3 +39,17 @@ void use_stack(int full){
     char a[array_size];
     use_array(a, full);
 }
+
+// 3. HEAP ARRAY
+__attribute__((noinline)) // malloc() and free() are called every time
+void use_heap(int full){
+    char *a = malloc(array_size);
+ 
+    if (a == NULL) {
+        printf("malloc failed\n");
+        exit(1);
+    }
+ 
+    use_array(a, full);
+    free(a);
+}
