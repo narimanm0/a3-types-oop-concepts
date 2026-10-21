@@ -15,3 +15,20 @@ In C# three keywords control this:
 | `new`      | method in the derived class  | hides the base method, it is a different method with the same name  | static  |
  
 A normal method (no `virtual`) is always bound statically.
+
+
+
+
+## 2. Implementation
+ 
+The classes are:
+ 
+```
+Animal (virtual MakeSound, normal Move)
+ ├── Dog (override MakeSound, new Move)
+ │    └── Puppy (override MakeSound)
+ └── Cat (new MakeSound)
+      └── Kitten (new MakeSound)
+```
+ 
+`Main` has four parts, and each part calls methods through a variable of the base type, so we can see which version is chosen.
