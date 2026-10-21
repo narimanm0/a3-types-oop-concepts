@@ -92,6 +92,50 @@ class CD < LibraryItem
     puts "Tracks: #{tracks}" if tracks
   end
 end
+
+# 5. Library Class
+class Library
+  def initialize
+    @items = [] # list is private, we work with it only through the methods
+  end
+ 
+  def add_item(item)
+    raise ArgumentError, "only LibraryItem objects can be added" unless item.is_a?(LibraryItem)
+ 
+    @items << item
+    puts "Added: #{item}"
+  end
+ 
+  def remove_item(title)
+    index = @items.index { |item| item.title == title }
+ 
+    if index.nil?
+      puts "Not found: #{title}"
+      return nil
+    end
+ 
+    removed = @items.delete_at(index)
+    puts "Removed: #{removed}"
+    removed
+  end
+ 
+  def display_item(item) # polymorphism: we do not check the type, every item knows how to display itself
+    item.display_info
+  end
+ 
+  def display_all_items
+    if @items.empty?
+      puts "The library is empty."
+      return
+    end
+ 
+    puts "=== Library catalog (#{@items.size} items) ==="
+    @items.each do |item|
+      display_item(item)
+      puts
+    end
+  end
+end
  
 # Crеatе instancеs of diffеrеnt library itеms
 book = Book.nеw("Concеpts of Programming Languagеs", "Robеrt Sеbеsta", 2015, "Programming")
